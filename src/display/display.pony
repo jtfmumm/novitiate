@@ -130,7 +130,7 @@ actor CursesDisplay
 
   be inventory(inv: InventoryDisplayable val) =>
     Nc.wclear(_world_window)
-    let categories = ["Weapons", "Armor", "Potions", "Miscellaneous"]
+    let categories = ["Weapons"; "Armor"; "Potions"; "Miscellaneous"]
     let mid_offset = _world_width / 2
     var line: I32 = 0
     var offset: I32 = 0
