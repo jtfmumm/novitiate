@@ -7,7 +7,7 @@ Because everything is procedurally generated, it's a different game
 every time.
 
 NOTE: Acolyte is currently tested with ponyc v0.11.1. It may break
-with later releases.
+with later ponyc releases.
 
 * [Acolyte Instructions](#acolyte-instructions)
 * [Installation](#installation)
