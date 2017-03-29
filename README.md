@@ -96,7 +96,7 @@ $ sudo port select --set llvm mp-llvm-3.8
 
 ##### Install compiler
 Clone the ponyc repo and install the compiler (Acolyte is tested with ponyc 
-v0.11.1):
+v0.11.4):
 ```
 git clone https://github.com/ponylang/ponyc
 cd ponyc
