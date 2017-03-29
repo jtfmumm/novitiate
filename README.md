@@ -6,7 +6,7 @@ This is a work in progress but you can currently play complete games.
 Because everything is procedurally generated, it's a different game
 every time.
 
-NOTE: Acolyte is currently tested with ponyc v0.11.1. It may break
+NOTE: Acolyte is currently tested with ponyc v0.11.4. It may break
 with later ponyc releases.
 
 * [Acolyte Instructions](#acolyte-instructions)
@@ -100,7 +100,7 @@ v0.11.1):
 ```
 git clone https://github.com/ponylang/ponyc
 cd ponyc
-git checkout 0.11.1
+git checkout 0.11.4
 make config=release install
 ```
 
