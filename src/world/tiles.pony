@@ -10,8 +10,10 @@ class Tiles
   let _room_shapes: RangedArray[RoomShape val] = RangedArray[RoomShape val]
   let _absolute_top_left: Pos val
 
+  let _void_tile: Tile = Tile.empty()
+
   new create(h': I32, w': I32, data_gen: ({(): Tile} val | None) = None,
-    absolute_top_left': Pos val = Pos(0, 0)) 
+    absolute_top_left': Pos val = Pos(0, 0))
   =>
     _h = h'
     _w = w'
@@ -29,8 +31,8 @@ class Tiles
       end
     end
 
-  new iso _from(h': I32, w': I32, d: Array[Tile] iso, 
-    absolute_top_left': Pos val = Pos(0, 0)) 
+  new iso _from(h': I32, w': I32, d: Array[Tile] iso,
+    absolute_top_left': Pos val = Pos(0, 0))
   =>
     _h = h'
     _w = w'
@@ -54,16 +56,13 @@ class Tiles
   fun h(): I32 => _h
   fun w(): I32 => _w
 
-  fun ref add_room(id: U128, shape: RoomShape val) => 
+  fun ref add_room(id: U128, shape: RoomShape val) =>
     let r: Room val = recover Room(shape) end
     _rooms(id) = r
     _room_list.push(r)
     _room_shapes.add(shape, shape.perimeter_size())
 
-  // fun ref add_room_shape(room_shape: RoomShape val) =>
-  //   _room_shapes.add(room_shape, room_shape.perimeter_size())
-
-  fun ref discover_room(id: U128) => try _rooms(id).discover(this) end 
+  fun ref discover_room(id: U128) => try _rooms(id).discover(this) end
 
   fun ref discover(pos: Pos val) => try apply(pos).discover() end
 
@@ -75,20 +74,17 @@ class Tiles
       error
     end
 
-  fun ref submap(h': I32, w': I32, top_left_cell: Pos val, 
-    create_void: ({(): Tile} val) = {(): Tile => Tile.empty()}): 
-    Tiles iso^
-  =>
+  fun ref submap(h': I32, w': I32, top_left_cell: Pos val): Tiles iso^ =>
     let data: Array[Tile] iso = recover Array[Tile] end
     for row in Range(0, h'.usize()) do
       for col in Range(0, w'.usize()) do
         let x = col.i32() + top_left_cell.x
         let y = row.i32() + top_left_cell.y
-        let tile = 
+        let tile =
           try
             apply(Pos(x, y))
           else
-            create_void()
+            _void_tile
           end
         data.push(tile.clone())
       end
