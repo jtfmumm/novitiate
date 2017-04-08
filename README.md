@@ -73,9 +73,22 @@ $ - cold, hard cash
 
 ## Installation
 
-Currently, Acolyte is only supported on OSX.
+Currently, Acolyte is only supported on OSX, though it should work on at least 
+some Linux distros.
+
+### Install via homebrew
+
+Installing via homebrew is easy. Just run the following command:
+```
+brew tap jtfmumm/tap
+brew install acolyte
+```
 
 ### Building on Mac OS X
+
+If you don't use homebrew or you'd rather build from source, you can follow
+these instructions. You'll need to install the Pony compiler as part of this
+process.
 
 #### Building ponyc
 You'll need llvm 3.7.1 or 3.8.1 and the pcre2 library to build Pony. You can use either homebrew or MacPorts to install these dependencies.
