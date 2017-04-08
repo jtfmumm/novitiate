@@ -78,7 +78,7 @@ some Linux distros.
 
 ### Install via homebrew
 
-Installing via homebrew is easy. Just run the following command:
+Installing via homebrew is easy. Just run the following commands:
 ```
 brew tap jtfmumm/tap
 brew install acolyte
