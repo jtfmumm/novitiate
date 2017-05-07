@@ -6,8 +6,8 @@ This is a work in progress but you can currently play complete games.
 Because everything is procedurally generated, it's a different game
 every time.
 
-NOTE: Acolyte is currently tested with ponyc v0.11.4. It may break
-with later ponyc releases.
+NOTE: Acolyte is currently tested with ponyc v0.14.0. It may break
+with earlier or later ponyc releases.
 
 * [Acolyte Instructions](#acolyte-instructions)
 * [Installation](#installation)
@@ -109,11 +109,11 @@ $ sudo port select --set llvm mp-llvm-3.8
 
 ##### Install compiler
 Clone the ponyc repo and install the compiler (Acolyte is tested with ponyc 
-v0.11.4):
+v0.14.0):
 ```
 git clone https://github.com/ponylang/ponyc
 cd ponyc
-git checkout 0.11.4
+git checkout 0.14.0
 make config=release install
 ```
 
