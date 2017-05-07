@@ -47,9 +47,9 @@ class ScanIterator is Iterator[Pos val]
 
 class ScanClose is Iterator[Pos val]
   var _pos: Pos val
-  let _diffs: Array[Pos val] = [Pos(-1, -1), Pos(0, -1), Pos(1, -1),
-                                Pos(-1, 0),              Pos(1, 0),
-                                Pos(-1, 1),  Pos(0, 1),  Pos(1, 1)]
+  let _diffs: Array[Pos val] = [Pos(-1, -1); Pos(0, -1); Pos(1, -1)
+                                Pos(-1, 0);              Pos(1, 0)
+                                Pos(-1, 1);  Pos(0, 1);  Pos(1, 1)]
   var _idx: USize = 0
 
   new create(pos: Pos val) =>

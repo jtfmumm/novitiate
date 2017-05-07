@@ -18,8 +18,8 @@ class iso _TestRectRoomShape is UnitTest
   fun apply(h: TestHelper) ? =>
     let p1: RoomShape val = RectRoom(Pos(2, 2), Pos(4, 5))
     
-    let perimeter_ans = [Pos(2, 2), Pos(3, 2), Pos(4, 2), Pos(4, 3), Pos(4, 4),
-      Pos(4, 5), Pos(3, 5), Pos(2, 5), Pos(2, 4), Pos(2, 3)]
+    let perimeter_ans = [Pos(2, 2); Pos(3, 2); Pos(4, 2); Pos(4, 3); Pos(4, 4)
+      Pos(4, 5); Pos(3, 5); Pos(2, 5); Pos(2, 4); Pos(2, 3)]
 
     for i in Range(0, 10) do
       h.assert_eq[Pos val](p1.perimeter_space(i), perimeter_ans(i))
