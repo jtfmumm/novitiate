@@ -1,4 +1,3 @@
-use "random"
 use "time"
 use "../datast"
 use "../world"
