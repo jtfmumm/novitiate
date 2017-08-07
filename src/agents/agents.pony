@@ -20,7 +20,7 @@ class Agents
 
   fun ref remove(a: Agent tag) =>
     try
-      let idx = _data.find(a)
+      let idx = _data.find(a)?
       _data.remove(idx, 1)
     end
 
@@ -29,7 +29,7 @@ class Agents
 
   fun ref prepare_act(turn_manager: TurnManager tag, self_pos: Pos val) =>
     if not _stopped then
-      try _rand.shuffle_array[Agent tag](_data) end
+      try _rand.shuffle_array[Agent tag](_data)? end
       turn_manager.set_expected_acks(_data.size())
       for (i, agent) in _data.pairs() do
         agent.prepare_act(i, self_pos)

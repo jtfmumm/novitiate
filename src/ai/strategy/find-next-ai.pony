@@ -16,7 +16,7 @@ class BasicFindNextAi
     let combat_choice = data.combat_ai()(tiles, data.rand())
     if combat_choice.should_attack then
       try
-        let target = tiles(combat_choice.target).occupant
+        let target = tiles(combat_choice.target)?.occupant
         let hit_roll = data.rand().i32_between(1, 20) + data.hit_bonus()
         let d = data.rand().i32_between(1, data.damage())
         {()(target, display, hit_roll, d, data) =>

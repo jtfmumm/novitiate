@@ -8,13 +8,13 @@ primitive ReplicateAi
     let mid = Pos(tiles.w() / 2, tiles.h() / 2)
     if in_range(tiles) then
       try
-        if tiles(mid + Directions.up()).is_open() then
+        if tiles(mid + Directions.up())?.is_open() then
           ((mid + Directions.up()), true)
-        elseif tiles(mid + Directions.right()).is_open() then
+        elseif tiles(mid + Directions.right())?.is_open() then
           ((mid + Directions.right()), true)
-        elseif tiles(mid + Directions.down()).is_open() then
+        elseif tiles(mid + Directions.down())?.is_open() then
           ((mid + Directions.down()), true)
-        elseif tiles(mid + Directions.left()).is_open() then
+        elseif tiles(mid + Directions.left())?.is_open() then
           ((mid + Directions.left()), true)
         else
           (Pos(-1, -1), false)
@@ -32,7 +32,7 @@ primitive ReplicateAi
         let x = col.i32()
         let y = row.i32()
         try
-          if tiles(Pos(x, y)).is_self() then
+          if tiles(Pos(x, y))?.is_self() then
             return true
           end
         end

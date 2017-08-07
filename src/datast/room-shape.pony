@@ -7,7 +7,7 @@ trait RoomShape
 
   fun rand_position(): Pos val =>
     let roll = Rand.usize_between(0, perimeter_size() - 1)
-    try perimeter_space(roll) else Pos(0, 0) end
+    try perimeter_space(roll)? else Pos(0, 0) end
 
   fun rand_interior_position(): Pos val
 
@@ -34,7 +34,7 @@ class RoomShapePerimeter is Iterator[Pos val]
     _i < _shape.perimeter_size()
 
   fun ref next(): Pos val ? =>
-    _shape.perimeter_space(_i = _i + 1)
+    _shape.perimeter_space(_i = _i + 1)?
 
   fun ref rewind(): RoomShapePerimeter =>
     _i = 0
@@ -145,7 +145,7 @@ class DiamondRoom is RoomShape
       _internal = EvenDiamondRoom(left, right)
     end
 
-  fun perimeter_space(i: USize): Pos val ? => _internal.perimeter_space(i)
+  fun perimeter_space(i: USize): Pos val ? => _internal.perimeter_space(i)?
   fun rand_position(): Pos val => _internal.rand_position()
   fun rand_interior_position(): Pos val => _internal.rand_interior_position()
   fun perimeter(): Iterator[Pos val]^ => _internal.perimeter()

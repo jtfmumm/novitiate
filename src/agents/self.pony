@@ -80,13 +80,13 @@ actor Self is Agent
     if _fast_mode then
       let relative_pos = tiles.relative_pos_for(_data.pos())
       try
-        if not tiles(relative_pos + _facing).is_passable() then
+        if not tiles(relative_pos + _facing)?.is_passable() then
           _game.exit_fast_mode()
         end
       end
       for pos in _scan_close(relative_pos) do
         try
-          if tiles(pos).is_interesting() then
+          if tiles(pos)?.is_interesting() then
             _game.exit_fast_mode()
           end
         end
@@ -170,9 +170,9 @@ actor Self is Agent
     let mid_pos = Pos(mid, mid)
     let target = mid_pos + pos_change
     try
-      if tiles(target).is_occupied() then
+      if tiles(target)?.is_occupied() then
         try
-          let enemy = tiles(target).occupant
+          let enemy = tiles(target)?.occupant
           let hit_roll = _data.rand().i32_between(1, 20) + _data.hit_bonus()
           let dmg = _data.rand().i32_between(1, _data.damage())
           let that = this
@@ -185,7 +185,7 @@ actor Self is Agent
           _next_act = EmptyAct
         end
       else
-        _next_act = try build_move(pos_change) else EmptyAct end
+        _next_act = try build_move(pos_change)? else EmptyAct end
       end
     end
 

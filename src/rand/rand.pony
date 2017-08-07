@@ -36,7 +36,7 @@ class Rand
     end
     for (i, value) in _indices.pairs() do
       let r = usize_between(i + 1, size - 1)
-      _indices(i) = _indices(r)
+      _indices(i)? = _indices(r)?
     end
-    a.permute(_indices.values())
+    a.permute(_indices.values())?
     a

@@ -38,7 +38,7 @@ class _Digout
     let guid = guid_gen()
     tiles.add_room(guid, shape)
     for pos in shape.perimeter() do
-      try tiles(pos) =
+      try tiles(pos)? =
         recover
           Tile(EmptyOccupant, OccupantCodes.none(), Wall, -1
             where r_id = guid)
@@ -47,7 +47,7 @@ class _Digout
     end
 
     for pos in shape.interior() do
-      try tiles(pos) =
+      try tiles(pos)? =
         recover
           Tile(EmptyOccupant, OccupantCodes.none(), Floor, -1
             where r_id = guid)
@@ -75,14 +75,14 @@ class _Digout
       try
         let shapes = tiles.room_shapes()
         let shapes_idx = Rand.usize_between(0, tiles.room_shapes().size())
-        let shape = shapes(shapes_idx)
+        let shape = shapes(shapes_idx)?
         let pos_idx = Rand.usize_between(0, shape.perimeter_size())
-        let pos = shape.perimeter_space(pos_idx)
+        let pos = shape.perimeter_space(pos_idx)?
 
-        let west = tiles(pos + Directions.left()).is_diggable()
-        let e = tiles(pos + Directions.right()).is_diggable()
-        let s = tiles(pos + Directions.down()).is_diggable()
-        let n = tiles(pos + Directions.up()).is_diggable()
+        let west = tiles(pos + Directions.left())?.is_diggable()
+        let e = tiles(pos + Directions.right())?.is_diggable()
+        let s = tiles(pos + Directions.down())?.is_diggable()
+        let n = tiles(pos + Directions.up())?.is_diggable()
 
         let h = Rand.i32_between(3, 10)
         let w = Rand.i32_between(3, 20)
@@ -122,7 +122,7 @@ class _Digout
 
   fun tag exists_and_is_blocked(tiles: Tiles, pos: Pos val): Bool =>
     try
-      (not tiles(pos).is_passable()) and (not tiles(pos).is_diggable())
+      (not tiles(pos)?.is_passable()) and (not tiles(pos)?.is_diggable())
     else
       true
     end
@@ -135,13 +135,13 @@ class _Digout
     // Check for free space
     try
       for p in scan() do
-        if not tiles(p).is_diggable() then return tiles end
+        if not tiles(p)?.is_diggable() then return tiles end
       end
       let next_shape = RectRoom(top_left, Pos(top_left.x + (w - 1),
         top_left.y + (h - 1)))
       tiles.add_room(guid, next_shape)
       for p in next_shape.perimeter() do
-        try tiles(p) =
+        try tiles(p)? =
           recover
             Tile(EmptyOccupant, OccupantCodes.none(), Wall, -1
               where r_id = guid)
@@ -149,18 +149,18 @@ class _Digout
         end
       end
       for p in next_shape.interior() do
-        try tiles(p) =
+        try tiles(p)? =
           recover
             Tile(EmptyOccupant, OccupantCodes.none(), Floor, -1
               where r_id = guid)
           end
         end
       end
-      tiles(connector) = Tile(EmptyOccupant, OccupantCodes.none(), Floor, -1
+      tiles(connector)? = Tile(EmptyOccupant, OccupantCodes.none(), Floor, -1
         where r_id = guid)
 
-      let last_r_id = tiles(door).room_id
-      tiles(door) = Tile(EmptyOccupant, OccupantCodes.none(), Floor, -1
+      let last_r_id = tiles(door)?.room_id
+      tiles(door)? = Tile(EmptyOccupant, OccupantCodes.none(), Floor, -1
         where r_id = last_r_id)
     end
     tiles
@@ -171,9 +171,9 @@ class _Digout
       let room_count = tiles.room_count()
       let room_idx = Rand.usize_between(0, room_count - 1)
       try
-        let room = tiles.room(room_idx)
+        let room = tiles.room(room_idx)?
         let pos = room.rand_interior_position()
-        tiles(pos).update_landmark(DownStairs(DungeonBuilder))
+        tiles(pos)?.update_landmark(DownStairs(DungeonBuilder))
       end
       tiles
     end

@@ -16,12 +16,12 @@ class MinHeap[V: (Comparable[V] #read & Any #alias)]
   fun ref _bubble_up(idx: USize) =>
     if idx == 0 then return end
     try
-      let el = _data(idx)   
+      let el = _data(idx)?   
       let parent_idx = _parent_idx(idx)
-      let parent = _data(parent_idx)
+      let parent = _data(parent_idx)?
       if el < parent then
-        _data(idx) = parent
-        _data(parent_idx) = el
+        _data(idx)? = parent
+        _data(parent_idx)? = el
         _bubble_up(parent_idx)
       end
     end
@@ -32,26 +32,26 @@ class MinHeap[V: (Comparable[V] #read & Any #alias)]
     let right_idx = _right_child_idx(idx)
     if left_idx >= _data.size() then return end
     try
-      let el = _data(idx)
+      let el = _data(idx)?
       if right_idx >= _data.size() then
-        let left = _data(left_idx)
+        let left = _data(left_idx)?
         if left < el then
-          _data(idx) = left
-          _data(left_idx) = el
+          _data(idx)? = left
+          _data(left_idx)? = el
         end
       else
-        let left = _data(left_idx)
-        let right = _data(right_idx)
+        let left = _data(left_idx)?
+        let right = _data(right_idx)?
         if left < right then
           if left < el then
-            _data(idx) = left
-            _data(left_idx) = el
+            _data(idx)? = left
+            _data(left_idx)? = el
             _bubble_down(left_idx)
           end
         else
           if right < el then
-            _data(idx) = right
-            _data(right_idx) = el
+            _data(idx)? = right
+            _data(right_idx)? = el
             _bubble_down(right_idx)
           end
         end
@@ -63,15 +63,15 @@ class MinHeap[V: (Comparable[V] #read & Any #alias)]
     _bubble_up(_data.size() - 1)
 
   fun ref pop(): V ? =>
-    let el = _data(0)
+    let el = _data(0)?
     if _data.size() > 1 then
-      _data(0) = _data.pop()
+      _data(0)? = _data.pop()?
       _bubble_down(0)
     else
-      _data.pop()
+      _data.pop()?
     end
     el
 
-  fun peek(): this->V ? => _data(0)
+  fun peek(): this->V ? => _data(0)?
 
   fun size(): USize => _data.size()

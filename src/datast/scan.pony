@@ -65,7 +65,7 @@ class ScanClose is Iterator[Pos val]
   fun ref next(): Pos val =>
     let pos =
       try
-        _pos + _diffs(_idx)
+        _pos + _diffs(_idx)?
       else
         Pos(-1, -1)
       end

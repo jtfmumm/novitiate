@@ -17,16 +17,16 @@ class RangedArray[V: Any #alias]
   fun apply(i: USize): this->V ? =>
     let ext_idx = i.isize()
     for idx in _ranges.values() do
-      if ext_idx <= idx then return _data(idx) end
+      if ext_idx <= idx then return _data(idx)? end
     end
     error
 
   fun ref append(r: RangedArray[V]) =>
-    let current_max: ISize = try _ranges(_ranges.size() - 1) else 0 end
+    let current_max: ISize = try _ranges(_ranges.size() - 1)? else 0 end
     for range in r._ranges.values() do
       try
         let new_range = range + current_max
-        _data(new_range) = r._data(range)
+        _data(new_range) = r._data(range)?
         _ranges.push(new_range)
       end
     end

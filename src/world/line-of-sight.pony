@@ -7,7 +7,7 @@ primitive LineOfSight
     let iter = LineIterator(pos1, pos2)
     for pos in iter do
       try
-        let t = tiles(pos)
+        let t = tiles(pos)?
         if t.is_transparent() then
           if pos == pos1 then return true end
         else
@@ -26,7 +26,7 @@ primitive LineOfSight
     let iter = LineIterator(pos1, pos2)
     for pos in iter do
       try
-        let t = tiles(pos)
+        let t = tiles(pos)?
         if t.is_transparent() then
           arr.push(pos)
         else

@@ -30,7 +30,7 @@ trait World
 
   be add_agent_if_empty(a: Agent tag, pos: Pos val, occupant_code: I32) =>
     try
-      let t = tiles()(pos)
+      let t = tiles()(pos)?
       if t.is_open() then
         add_agent(a, pos, occupant_code)
       end
@@ -115,14 +115,14 @@ trait World
     let bottom_right = Pos(brx, bry)
     let scan = Scan(top_left, h, w)
     for pos in scan() do
-      try tiles()(pos).update_seen(false) end
+      try tiles()(pos)?.update_seen(false) end
     end
     let shape = RectRoom(top_left, bottom_right)
     for pos in shape.perimeter() do
       let line = LineIterator(focus, pos)
       for p in line do
         try
-          let t = tiles()(p)
+          let t = tiles()(p)?
           if t.is_transparent() then
             t.update_seen(true)
           else
@@ -144,7 +144,7 @@ trait World
 
   be describe(pos: Pos val, d: Display tag) =>
     try
-      let t = tiles()(pos)
+      let t = tiles()(pos)?
       if t.is_visible() then
         t.describe(d)
       else
@@ -154,7 +154,7 @@ trait World
 
   be describe_close(pos: Pos val, d: Display tag) =>
     try
-      let t = tiles()(pos)
+      let t = tiles()(pos)?
       if t.is_visible() and t.is_self() then
         t.describe_close(d)
       else
@@ -164,7 +164,7 @@ trait World
 
   be try_take(pos: Pos val, s: Self tag) =>
     try
-      let t = tiles()(pos)
+      let t = tiles()(pos)?
       match t.item
       | let i: Item val =>
         s.pick_up_item(i)
@@ -173,13 +173,13 @@ trait World
 
   be remove_item(pos: Pos val) =>
     try
-      let t = tiles()(pos)
+      let t = tiles()(pos)?
       t.remove_item()
     end
 
   be try_add_item(i: Item val, pos: Pos val) =>
     try
-      let t = tiles()(pos)
+      let t = tiles()(pos)?
       match t.item
       | let s: StaffOfEternity val => None
       else
@@ -189,7 +189,7 @@ trait World
 
   be climb(pos: Pos val, self: Self tag) =>
     try
-      let t = tiles()(pos)
+      let t = tiles()(pos)?
       if t.has_upstairs() then
         _exit(pos, self)
         parent().enter(self)
@@ -203,7 +203,7 @@ trait World
       let t_manager = turn_manager()
       match t_manager
       | let tm: TurnManager tag =>
-        let t = tiles()(pos)
+        let t = tiles()(pos)?
         if t.has_downstairs() then
           _exit(pos, self)
           let down = t.portal(diameter(), tm, display(),
