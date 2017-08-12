@@ -12,6 +12,7 @@ with earlier or later ponyc releases.
 * [Acolyte Instructions](#acolyte-instructions)
 * [Installation](#installation)
 * [Running](#running)
+* [Pull Requests](#pull-requests)
 
 ![Acolyte](/images/screenshot.png?raw=true "Acolyte")
 
@@ -133,5 +134,8 @@ Assuming you've set execute permissions (e.g. via `chmod +x acolyte`), you can r
 ./acolyte
 ```
 
-
+## Pull Requests
+This project is at a very early stage and I'm still working out where I want it to go.
+For this reason, I'm currently only considering PRs for minor fixes (such as keeping the codebase
+current with the latest ponyc, which is updated frequently).
 
