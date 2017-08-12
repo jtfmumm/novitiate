@@ -33,24 +33,24 @@ actor OverWorld is World
     _agents = Agents(_display)
 
     try
-      let terrain = DiamondSquare(_diameter, _diameter_per_region, _rand)
+      let terrain = DiamondSquare(_diameter, _diameter_per_region, _rand)?
       for row in Range(0, _diameter.usize()) do
         for col in Range(0, _diameter.usize()) do
           let next_cell = Pos(row.i32(), col.i32())
-          let elevation = terrain(next_cell)
+          let elevation = terrain(next_cell)?
 //          let elevation: ISize = 2
           match _dice(1, 3)
-          | 1 => _tiles(next_cell) =
+          | 1 => _tiles(next_cell)? =
             (Tile(EmptyOccupant, OccupantCodes.none(), Plain,
               elevation.isize()))
-          | 2 => _tiles(next_cell) =
+          | 2 => _tiles(next_cell)? =
             (Tile(EmptyOccupant, OccupantCodes.none(), Forest,
               elevation.isize()))
-          | 3 => _tiles(next_cell) =
+          | 3 => _tiles(next_cell)? =
             (Tile(EmptyOccupant, OccupantCodes.none(), Hill,
               elevation.isize()))
           else
-            _tiles(next_cell) = (Tile(EmptyOccupant, OccupantCodes.none(),
+            _tiles(next_cell)? = (Tile(EmptyOccupant, OccupantCodes.none(),
               Plain, elevation.isize()))
           end
         end
@@ -85,7 +85,7 @@ actor OverWorld is World
 
   fun ref tile(pos: Pos val): Tile =>
     try
-      _tiles(pos)
+      _tiles(pos)?
     else
       Tile.empty()
     end

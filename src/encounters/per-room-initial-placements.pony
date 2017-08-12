@@ -19,18 +19,18 @@ primitive PerRoomInitialPlacements
       for i in Range(0, item_count) do
         let room_idx = Rand.usize_between(0, room_count - 1)
         try
-          let room = tiles.room(room_idx)
+          let room = tiles.room(room_idx)?
           let pos = room.rand_interior_position()
           let item: Item val = generate_item(depth, rand)
-          tiles(pos).set_item(item)
+          tiles(pos)?.set_item(item)
         end
       end
       if depth == max_depth then
         let room_idx = Rand.usize_between(0, room_count - 1)
         try
-          let room = tiles.room(room_idx)
+          let room = tiles.room(room_idx)?
           let pos = room.rand_interior_position()
-          tiles(pos).set_item(StaffOfEternity)
+          tiles(pos)?.set_item(StaffOfEternity)
         end
       end
       tiles
@@ -51,7 +51,7 @@ primitive PerRoomInitialPlacements
         let potential_bonus = WeaponDepths.potential_bonus(depth)
         let bonus: I32 = rand.i32_between(0, potential_bonus)
         let choice = rand.usize_between(0, weapon_range.size() - 1)
-        var weapon = (weapon_range(choice)()) as Weapon val
+        var weapon = (weapon_range(choice)?()) as Weapon val
         if (weapon.dmg() + bonus) > max_dmg then
           weapon
         else
@@ -63,7 +63,7 @@ primitive PerRoomInitialPlacements
         let potential_bonus = ArmorDepths.potential_bonus(depth)
         let bonus: I32 = rand.i32_between(0, potential_bonus)
         let choice = rand.usize_between(0, armor_range.size() - 1)
-        var armor = (armor_range(choice)()) as Armor val
+        var armor = (armor_range(choice)?()) as Armor val
         if (armor.ac() + bonus) > max_ac then
           armor
         else

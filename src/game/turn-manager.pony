@@ -56,7 +56,7 @@ actor TurnManager
       agent.act()
       try
         while ready_map.contains(last_rank_acted.usize() + 1) do
-          ready_map(last_rank_acted.usize() + 1).act()
+          ready_map(last_rank_acted.usize() + 1)?.act()
           last_rank_acted = last_rank_acted + 1
         end
       end

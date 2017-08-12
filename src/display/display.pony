@@ -84,7 +84,7 @@ actor CursesDisplay
     for row in Range[I32](0, _world_height) do
       for col in Range[I32](0, _world_width) do
         try
-          let tile: Tile = t(Pos(col, row))
+          let tile: Tile = t(Pos(col, row))?
           if tile.is_visible() then
             let background =
               if tile.is_highlighted() then
@@ -136,7 +136,7 @@ actor CursesDisplay
     var offset: I32 = 0
     for category in categories.values() do
       try
-        let items = inv.items(category)
+        let items = inv.items(category)?
         if items.size() > 0 then
           Nc.mvwprintw(_world_window, line, offset, category.upper())
           line = line + 1
@@ -147,7 +147,7 @@ actor CursesDisplay
         end
         for (idx, v) in items.pairs() do
           let item = if inv.equipped.contains(category)
-            and inv.equipped(category).contains(idx) then
+            and inv.equipped(category)?.contains(idx) then
             "  * " + v
           else
             "  " + v
@@ -204,7 +204,7 @@ actor CursesDisplay
     end
 
     while _log_msgs.size() > _log_max do
-      try _log_msgs.shift() end
+      try _log_msgs.shift()? end
     end
     _display_logs()
 
@@ -224,7 +224,7 @@ actor CursesDisplay
     Nc.wclear(_log_window)
     for i in Range[I32](1, _log_msgs.size().i32()) do
       try
-        Nc.mvwprintw(_log_window, i, 0, _log_msgs(i.usize()).msg)
+        Nc.mvwprintw(_log_window, i, 0, _log_msgs(i.usize())?.msg)
       end
     end
     Nc.refresh()
@@ -264,16 +264,16 @@ primitive LogAppender
         let words = recover val s.split(" ") end
         if words.size() == 0 then return consume log_msgs end
 
-        var next_line = words(0)
+        var next_line = words(0)?
 
         for i in Range(1, words.size()) do
-          let word = words(i)
+          let word = words(i)?
           if word == " " then continue end
           if (next_line.size() + word.size() + 1) <= line_length.usize() then
             next_line = next_line + " " + word
           else
             try
-              if next_line(0) == ' ' then
+              if next_line(0)? == ' ' then
                 next_line = next_line.substring(1, next_line.size().isize())
               end
             end

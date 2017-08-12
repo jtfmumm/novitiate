@@ -64,7 +64,7 @@ actor SimpleDungeon is World
 
   fun ref tile(pos: Pos val): Tile =>
     try
-      _tiles(pos)
+      _tiles(pos)?
     else
       Tile.empty()
     end

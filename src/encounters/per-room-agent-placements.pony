@@ -22,11 +22,11 @@ primitive PerRoomAgentPlacements
     for i in Range(0, agent_count) do
       let room_idx = Rand.usize_between(0, room_count - 1)
       try
-        let room = tiles.room(room_idx)
+        let room = tiles.room(room_idx)?
         let pos = room.rand_interior_position()
         let roll = rand.usize_between(0, agent_depths.size() - 1)
         try
-          agent_depths(roll)(pos, world, turn_manager)
+          agent_depths(roll)?(pos, world, turn_manager)
         end
       end
     end

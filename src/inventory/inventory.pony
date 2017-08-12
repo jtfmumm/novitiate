@@ -23,13 +23,13 @@ class Inventory
     let m = _misc.size()
 
     if idx < w then
-      _weapons(idx)
+      _weapons(idx)?
     elseif idx < (w + a) then
-      _armor(idx - w)
+      _armor(idx - w)?
     elseif idx < (w + a + p) then
-      _potions(idx - (w + a))
+      _potions(idx - (w + a))?
     else
-      _misc(idx - (w + a + p))
+      _misc(idx - (w + a + p))?
     end
 
   fun size(): USize =>
@@ -78,19 +78,19 @@ class Inventory
 
     try
       if idx < w then
-        let i = _weapons(idx)
+        let i = _weapons(idx)?
         _weapons.remove(idx, 1)
         return i
       elseif idx < (w + a) then
-        let i = _armor(idx - w)
+        let i = _armor(idx - w)?
         _armor.remove(idx - w, 1)
         return i
       elseif idx < (w + a + p) then
-        let i = _potions(idx - (w + a))
+        let i = _potions(idx - (w + a))?
         _potions.remove(idx - (w + a), 1)
         return i
       else
-        let i = _misc(idx - (w + a + p))
+        let i = _misc(idx - (w + a + p))?
         _misc.remove(idx - (w + a + p), 1)
         return i
       end
@@ -177,7 +177,7 @@ class InventoryManager
 
   fun description(): String =>
     try
-      _inventory(_current.usize()).description()
+      _inventory(_current.usize())?.description()
     else
       "nothing"
     end
@@ -200,9 +200,9 @@ class InventoryManager
       for (idx, v) in _equipped.pairs() do
         try
           if v == _current then
-            _equipped(idx) = -1
+            _equipped(idx)? = -1
           elseif v > _current then
-            _equipped(idx) = v - 1
+            _equipped(idx)? = v - 1
           end
         end
       end
@@ -228,7 +228,7 @@ class InventoryManager
         for (i, v) in _equipped.pairs() do
           try
             if v >= idx then
-              _equipped(i) = v + 1
+              _equipped(i)? = v + 1
             end
           end
         end
@@ -240,7 +240,7 @@ class InventoryManager
 
   fun ref try_item() =>
     try
-      let item = _inventory(_current.usize())
+      let item = _inventory(_current.usize())?
       match item
       | let w: Weapon => equip()
       | let a: Armor => equip()
@@ -255,7 +255,7 @@ class InventoryManager
 
   fun ref utilize() =>
     try
-      let item = _inventory(_current.usize())
+      let item = _inventory(_current.usize())?
       match item
       | let p: Potion =>
         p.drink(_self, _display)
@@ -270,7 +270,7 @@ class InventoryManager
 
   fun ref equip() =>
     try
-      let item = _inventory(_current.usize())
+      let item = _inventory(_current.usize())?
       match item
       | let w: Weapon => equip_weapon(w)
       | let a: Armor => equip_armor(a)
@@ -296,7 +296,7 @@ class InventoryManager
     _agent_data.update_dmg(w.dmg())
     _agent_data.update_dmg_bonus(w.bonus())
     _agent_data.modify_hit_bonus(w.bonus())
-    try _equipped(0) = _current end
+    try _equipped(0)? = _current end
 
   fun ref equip_armor(a: Armor) =>
     match a.armor_type()
@@ -307,7 +307,7 @@ class InventoryManager
       end
       _armor = a
       _agent_data.modify_ac(a.ac())
-      try _equipped(1) = _current end
+      try _equipped(1)? = _current end
     | Helmet =>
       match _helmet
       | let ar: Armor =>
@@ -315,7 +315,7 @@ class InventoryManager
       end
       _helmet = a
       _agent_data.modify_ac(a.ac())
-      try _equipped(2) = _current end
+      try _equipped(2)? = _current end
     | Shield =>
       match _shield
       | let ar: Armor =>
@@ -323,16 +323,16 @@ class InventoryManager
       end
       _shield = a
       _agent_data.modify_ac(a.ac())
-      try _equipped(3) = _current end
+      try _equipped(3)? = _current end
     end
 
   fun ref unequip_weapon(w: Weapon) =>
     try
-      if _equipped(0) == _current then
+      if _equipped(0)? == _current then
         _agent_data.modify_hit_bonus(-w.bonus())
         _agent_data.update_dmg(1)
         _agent_data.update_dmg_bonus(0)
-        _equipped(0) = -1
+        _equipped(0)? = -1
       end
     end
 
@@ -340,27 +340,27 @@ class InventoryManager
     try
       match a.armor_type()
       | BodyArmor =>
-        if _equipped(1) == _current then
+        if _equipped(1)? == _current then
           match _armor
           | let ar: Armor =>
             _agent_data.modify_ac(-ar.ac())
           end
-          try _equipped(1) = -1 end
+          try _equipped(1)? = -1 end
         end
       | Helmet =>
-        if _equipped(2) == _current then
+        if _equipped(2)? == _current then
           match _helmet
           | let ar: Armor =>
             _agent_data.modify_ac(-ar.ac())
           end
-          try _equipped(2) = -1 end
+          try _equipped(2)? = -1 end
         end
       | Shield =>
-        if _equipped(3) == _current then
+        if _equipped(3)? == _current then
           match _shield
           | let ar: Armor =>
             _agent_data.modify_ac(-ar.ac())
-            try _equipped(3) = -1 end
+            try _equipped(3)? = -1 end
           end
         end
       end
@@ -381,7 +381,7 @@ class InventoryManager
     try
       for (idx, v) in _equipped.pairs() do
         if (idx > 0) and (idx < 4) and (v != -1) then
-          list.push(_inventory.local_idx(_equipped(idx).usize()))
+          list.push(_inventory.local_idx(_equipped(idx)?.usize()))
         end
       end
     end
@@ -390,8 +390,8 @@ class InventoryManager
   fun _equipped_list_weapons(): Array[USize] val =>
     let list: Array[USize] iso = recover Array[USize] end
     try
-      if _equipped(0) != -1 then
-        list.push(_inventory.local_idx(_equipped(0).usize()))
+      if _equipped(0)? != -1 then
+        list.push(_inventory.local_idx(_equipped(0)?.usize()))
       end
     end
     consume list

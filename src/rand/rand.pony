@@ -1,13 +1,13 @@
 use "collections"
-use "random"
+use random = "random"
 use "time"
 
 class Rand
-  let _rand: Random
+  let _rand: random.Random
   let _indices: Array[USize] = Array[USize]
 
   new create(seed: U64 = Time.micros()) =>
-    _rand = MT(seed)
+    _rand = random.MT(seed)
 
   fun ref flip(): U64 => _rand.int(2)
 
@@ -36,7 +36,7 @@ class Rand
     end
     for (i, value) in _indices.pairs() do
       let r = usize_between(i + 1, size - 1)
-      _indices(i) = _indices(r)
+      _indices(i)? = _indices(r)?
     end
-    a.permute(_indices.values())
+    a.permute(_indices.values())?
     a

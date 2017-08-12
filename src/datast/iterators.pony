@@ -8,7 +8,7 @@ class Iterators[V: Any val] is Iterator[V]
   fun ref has_next(): Bool => 
     try
       while (_idx < _iters.size()) do
-        if _iters(_idx).has_next() then return true end
+        if _iters(_idx)?.has_next() then return true end
         _idx = _idx + 1
       end
       false
@@ -17,8 +17,8 @@ class Iterators[V: Any val] is Iterator[V]
     end
 
   fun ref next(): V ? =>
-    let n = _iters(_idx).next()
-    if not _iters(_idx).has_next() then
+    let n = _iters(_idx)?.next()?
+    if not _iters(_idx)?.has_next() then
       _idx = _idx + 1
     end
     consume n

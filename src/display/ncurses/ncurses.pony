@@ -34,13 +34,13 @@ primitive Nc
     @mvwprintw[None](window, row, column, s.cstring())
   fun mvaddch(row: I32, column: I32, char_string: String) =>
     try
-      let char = char_string.array()(0)
+      let char = char_string.array()(0)?
       @mvaddch[None](row, column, char)
     end
   fun mvwaddch(window: Pointer[Window], row: I32, column: I32,
     char_string: String) =>
     try
-      let char = char_string.array()(0)
+      let char = char_string.array()(0)?
       @mvwaddch[None](window, row, column, char)
     end
 

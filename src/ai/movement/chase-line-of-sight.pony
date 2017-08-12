@@ -13,7 +13,7 @@ primitive ChaseLineOfSightMovementAi
       let line = LineIterator(mid, pos)
       for p in line do
         try
-          let t = tiles(p)
+          let t = tiles(p)?
           if t.is_transparent() then
             if t.is_self() then
               let dx: I32 =

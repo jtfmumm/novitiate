@@ -48,7 +48,7 @@ actor Dungeon is World
     end
 
     if _depth > 1 then
-      try _tiles(starting_pos).update_landmark(UpStairs) end
+      try _tiles(starting_pos)?.update_landmark(UpStairs) end
     end
 
   be increment_turn() => _last_turn = _last_turn + 1
@@ -76,7 +76,7 @@ actor Dungeon is World
 
   fun ref tile(pos: Pos val): Tile =>
     try
-      _tiles(pos)
+      _tiles(pos)?
     else
       Tile.empty()
     end

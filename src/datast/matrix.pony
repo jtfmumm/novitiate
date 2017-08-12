@@ -30,7 +30,7 @@ class Matrix[A: Any #read]
 
   fun ref apply(pos: Pos val): A ? =>
     if _in_bounds(pos) then
-      match _data(_to_cell(pos))
+      match _data(_to_cell(pos))?
       | let a: A => a
       else
         @printf[I32](("Matrix Read Error\n").cstring())
@@ -42,7 +42,7 @@ class Matrix[A: Any #read]
 
   fun ref update(pos: Pos val, value: A) ? =>
     if _in_bounds(pos) then
-       _data(_to_cell(pos)) = value
+       _data(_to_cell(pos))? = value
     else
       @printf[I32](("Matrix Write Error: Out of bounds\n").cstring())
       error

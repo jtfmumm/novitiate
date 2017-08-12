@@ -48,7 +48,7 @@ class Tiles
 
   fun ref apply(pos: Pos val): Tile ? =>
     if _in_bounds(pos) then
-      _data(_to_cell(pos))
+      _data(_to_cell(pos))?
     else
       error
     end
@@ -62,13 +62,13 @@ class Tiles
     _room_list.push(r)
     _room_shapes.add(shape, shape.perimeter_size())
 
-  fun ref discover_room(id: U128) => try _rooms(id).discover(this) end
+  fun ref discover_room(id: U128) => try _rooms(id)?.discover(this) end
 
-  fun ref discover(pos: Pos val) => try apply(pos).discover() end
+  fun ref discover(pos: Pos val) => try apply(pos)?.discover() end
 
   fun ref update(pos: Pos val, value: Tile) ? =>
     if _in_bounds(pos) then
-       _data(_to_cell(pos)) = value
+       _data(_to_cell(pos))? = value
     else
       @printf[I32](("Matrix Write Error: Out of bounds\n").cstring())
       error
@@ -82,7 +82,7 @@ class Tiles
         let y = row.i32() + top_left_cell.y
         let tile =
           try
-            apply(Pos(x, y))
+            apply(Pos(x, y))?
           else
             _void_tile
           end
@@ -98,8 +98,8 @@ class Tiles
 
   fun room_count(): USize => _room_list.size()
 
-  fun room(idx: USize): Room val ? => _room_list(idx)
+  fun room(idx: USize): Room val ? => _room_list(idx)?
 
-  fun ref highlight(pos: Pos val) => try apply(pos).highlight() end
+  fun ref highlight(pos: Pos val) => try apply(pos)?.highlight() end
 
-  fun ref unhighlight(pos: Pos val) => try apply(pos).unhighlight() end
+  fun ref unhighlight(pos: Pos val) => try apply(pos)?.unhighlight() end
