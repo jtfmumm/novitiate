@@ -185,12 +185,12 @@ actor Self is Agent
           _next_act = EmptyAct
         end
       else
-        _next_act = try build_move(pos_change)? else EmptyAct end
+        _next_act = build_move(pos_change)
       end
     end
 
-  fun build_move(pos_change: Pos val): {()} ? =>
-    let self = this as Agent tag
+  fun build_move(pos_change: Pos val): {()} =>
+    let self: Agent tag = this
     let pos = _data.pos()
     let world = _data.world()
     let code = _data.code()

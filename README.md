@@ -6,7 +6,7 @@ This is a work in progress but you can currently play complete games.
 Because everything is procedurally generated, it's a different game
 every time.
 
-NOTE: Acolyte is currently tested with ponyc v0.14.0. It may break
+NOTE: Acolyte is currently tested with ponyc v0.20.0. It may break
 with earlier or later ponyc releases.
 
 * [Acolyte Instructions](#acolyte-instructions)
