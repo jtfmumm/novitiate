@@ -113,7 +113,7 @@ class _DiamondSquare
       matrix(Pos(x + midpoint, y))? = ((nw + ne) / 2) + _small_noise(rand)
       matrix(Pos(x + midpoint, y + (diameter - 1)))? = ((sw + se) / 2) + _small_noise(rand)
     else
-      @printf[None](("Failed!\n").cstring())
+      @printf[I32](("Failed!\n").cstring())
     end
     if midpoint == 1 then return consume matrix end
     matrix = diamond_square(consume matrix, x, y, midpoint + 1, rand)
