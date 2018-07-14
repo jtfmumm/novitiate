@@ -1,101 +1,104 @@
-use "collections"
-use "random"
-use "time"
-use "../agents"
-use "../datast"
-use "../display"
-use "../game"
-use "../generators"
-use "../log"
+// TODO: All this code can be uncommented once I deal with
+// match issue in Matrix raised by ponyc changes.
 
-actor OverWorld is World
-  let _parent_world: World tag = EmptyWorld
-  let _diameter: I32
-  let _diameter_per_region: I32 = 65
-  let _tiles: Tiles
-  let _agents: Agents
-  let _display: Display tag
-  let _rand: Random
-  let _dice: Dice
-  let _turn_manager: TurnManager tag
-  let _depth: I32 = 0
-  var _last_focus: Pos val = Pos(0, 0)
-  var _last_turn: I32 = 0
+// use "collections"
+// use "random"
+// use "time"
+// use "../agents"
+// use "../datast"
+// use "../display"
+// use "../game"
+// use "../generators"
+// use "../log"
 
-  new create(diameter': I32,
-    t_manager: TurnManager tag, seed: U64, display': Display tag) =>
-    _rand = MT(seed)
-    _dice = Dice(_rand)
-    _diameter = diameter'
-    _tiles = Tiles(_diameter, _diameter)
-    _turn_manager = t_manager
-    _display = display'
-    _agents = Agents(_display)
+// actor OverWorld is World
+//   let _parent_world: World tag = EmptyWorld
+//   let _diameter: I32
+//   let _diameter_per_region: I32 = 65
+//   let _tiles: Tiles
+//   let _agents: Agents
+//   let _display: Display tag
+//   let _rand: Random
+//   let _dice: Dice
+//   let _turn_manager: TurnManager tag
+//   let _depth: I32 = 0
+//   var _last_focus: Pos val = Pos(0, 0)
+//   var _last_turn: I32 = 0
 
-    try
-      let terrain = DiamondSquare(_diameter, _diameter_per_region, _rand)?
-      for row in Range(0, _diameter.usize()) do
-        for col in Range(0, _diameter.usize()) do
-          let next_cell = Pos(row.i32(), col.i32())
-          let elevation = terrain(next_cell)?
-//          let elevation: ISize = 2
-          match _dice(1, 3)
-          | 1 => _tiles(next_cell)? =
-            (Tile(EmptyOccupant, OccupantCodes.none(), Plain,
-              elevation.isize()))
-          | 2 => _tiles(next_cell)? =
-            (Tile(EmptyOccupant, OccupantCodes.none(), Forest,
-              elevation.isize()))
-          | 3 => _tiles(next_cell)? =
-            (Tile(EmptyOccupant, OccupantCodes.none(), Hill,
-              elevation.isize()))
-          else
-            _tiles(next_cell)? = (Tile(EmptyOccupant, OccupantCodes.none(),
-              Plain, elevation.isize()))
-          end
-        end
-      end
-    else
-      Logger.err("Can't generate terrain!")
-    end
+//   new create(diameter': I32,
+//     t_manager: TurnManager tag, seed: U64, display': Display tag) =>
+//     _rand = MT(seed)
+//     _dice = Dice(_rand)
+//     _diameter = diameter'
+//     _tiles = Tiles(_diameter, _diameter)
+//     _turn_manager = t_manager
+//     _display = display'
+//     _agents = Agents(_display)
 
-  fun present(): Bool => true
+//     try
+//       let terrain = DiamondSquare(_diameter, _diameter_per_region, _rand)?
+//       for row in Range(0, _diameter.usize()) do
+//         for col in Range(0, _diameter.usize()) do
+//           let next_cell = Pos(row.i32(), col.i32())
+//           let elevation = terrain(next_cell)?
+// //          let elevation: ISize = 2
+//           match _dice(1, 3)
+//           | 1 => _tiles(next_cell)? =
+//             (Tile(EmptyOccupant, OccupantCodes.none(), Plain,
+//               elevation.isize()))
+//           | 2 => _tiles(next_cell)? =
+//             (Tile(EmptyOccupant, OccupantCodes.none(), Forest,
+//               elevation.isize()))
+//           | 3 => _tiles(next_cell)? =
+//             (Tile(EmptyOccupant, OccupantCodes.none(), Hill,
+//               elevation.isize()))
+//           else
+//             _tiles(next_cell)? = (Tile(EmptyOccupant, OccupantCodes.none(),
+//               Plain, elevation.isize()))
+//           end
+//         end
+//       end
+//     else
+//       Logger.err("Can't generate terrain!")
+//     end
 
-  be increment_turn() => _last_turn = _last_turn + 1
+//   fun present(): Bool => true
 
-  be enter(self: Self) =>
-    let initial_pos = Pos(_diameter / 2, _diameter / 2)
-    self.update_pos(initial_pos)
-    add_agent(self, initial_pos, OccupantCodes.self())
-    set_occupant(initial_pos, self, OccupantCodes.self(), true)
-    self.update_world(this)
+//   be increment_turn() => _last_turn = _last_turn + 1
 
-  fun ref _exit(pos: Pos val, self: Self) =>
-    _last_focus = pos
-    remove_occupant(pos)
-    agents().remove(self)
+//   be enter(self: Self) =>
+//     let initial_pos = Pos(_diameter / 2, _diameter / 2)
+//     self.update_pos(initial_pos)
+//     add_agent(self, initial_pos, OccupantCodes.self())
+//     set_occupant(initial_pos, self, OccupantCodes.self(), true)
+//     self.update_world(this)
 
-  be add_agent(a: Agent tag, pos: Pos val, occupant_code: I32) =>
-    _agents.add(a)
-    set_occupant(pos, a, occupant_code)
+//   fun ref _exit(pos: Pos val, self: Self) =>
+//     _last_focus = pos
+//     remove_occupant(pos)
+//     agents().remove(self)
 
-  fun display(): Display tag => _display
+//   be add_agent(a: Agent tag, pos: Pos val, occupant_code: I32) =>
+//     _agents.add(a)
+//     set_occupant(pos, a, occupant_code)
 
-  fun diameter(): I32 => _diameter
+//   fun display(): Display tag => _display
 
-  fun ref tile(pos: Pos val): Tile =>
-    try
-      _tiles(pos)?
-    else
-      Tile.empty()
-    end
+//   fun diameter(): I32 => _diameter
 
-  fun ref tiles(): Tiles => _tiles
+//   fun ref tile(pos: Pos val): Tile =>
+//     try
+//       _tiles(pos)?
+//     else
+//       Tile.empty()
+//     end
 
-  fun ref agents(): Agents => _agents
+//   fun ref tiles(): Tiles => _tiles
 
-  fun depth(): I32 => _depth
+//   fun ref agents(): Agents => _agents
 
-  fun parent(): World tag => _parent_world
+//   fun depth(): I32 => _depth
 
-  fun turn_manager(): (TurnManager | None) => _turn_manager
+//   fun parent(): World tag => _parent_world
+
+//   fun turn_manager(): (TurnManager | None) => _turn_manager

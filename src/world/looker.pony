@@ -1,6 +1,6 @@
 use "../datast"
 use "../display"
-use "../input"
+use "../novinput"
 
 // Used to freely look around and inspect map with cursor in LookMode.
 actor Looker

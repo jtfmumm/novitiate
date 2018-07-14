@@ -2,7 +2,7 @@ use "../datast"
 use "../inventory"
 use "../world"
 
-primitive AcolyteDisplayAdapter is DisplayAdapter[Tiles]
+primitive NovitiateDisplayAdapter is DisplayAdapter[Tiles]
   fun apply(t: Tiles, col: I32, row: I32): (Glyph, Color) ? =>
     let tile: Tile = t(Pos(col, row))?
     if tile.is_visible() then

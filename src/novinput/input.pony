@@ -3,7 +3,7 @@ use "../game"
 use "../datast"
 use "../display"
 
-class InputNotify
+class NovInputNotify
   """
   Receive input from an ANSITerm.
   """

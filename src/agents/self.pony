@@ -3,7 +3,7 @@ use "../ai/movement"
 use "../datast"
 use "../display"
 use "../game"
-use "../input"
+use "../novinput"
 use "../inventory"
 use "../log"
 use "../rand"
@@ -46,7 +46,7 @@ actor Self is Agent
         turn_manager' = t_manager,
         rand' = Rand,
         world' = EmptyWorld,
-        name' = "acolyte",
+        name' = "novitiate",
         description' = "our hero",
         vision' = 5,
         pos' = Pos(0, 0),

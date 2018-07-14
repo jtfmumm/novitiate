@@ -1,6 +1,6 @@
 use "../datast"
 use "../display"
-use "../input"
+use "../novinput"
 
 // Used to look around map by jumping screens in MapViewMode.
 actor MapViewer

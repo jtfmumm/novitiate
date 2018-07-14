@@ -1,7 +1,7 @@
 use "options"
 use "time"
 use "src/game"
-use "src/input"
+use "src/novinput"
 
 actor Main
   new create(env: Env) =>
