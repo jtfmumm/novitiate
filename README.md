@@ -8,7 +8,7 @@ This is a work in progress but you can currently play complete games.
 Because everything is procedurally generated, it's a different game
 every time.
 
-NOTE: Novitiate is currently tested with ponyc v0.20.0. It may break
+NOTE: Novitiate is currently tested with ponyc v0.24.0. It may break
 with earlier or later ponyc releases.
 
 * [Novitiate Instructions](#novitiate-instructions)
