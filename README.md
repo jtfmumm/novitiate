@@ -1,4 +1,6 @@
-# Acolyte
+\[For the graphical Rust version, see [Acolyte](https://github.com/jtfmumm/acolyte).\]
+
+# Novitiate
 
 A procedurally generated RPG inspired by Rogue and written in Pony.
 
@@ -6,18 +8,18 @@ This is a work in progress but you can currently play complete games.
 Because everything is procedurally generated, it's a different game
 every time.
 
-NOTE: Acolyte is currently tested with ponyc v0.20.0. It may break
+NOTE: Novitiate is currently tested with ponyc v0.20.0. It may break
 with earlier or later ponyc releases.
 
-* [Acolyte Instructions](#acolyte-instructions)
+* [Novitiate Instructions](#novitiate-instructions)
 * [Installation](#installation)
 * [Running](#running)
 
-![Acolyte](/images/screenshot.png?raw=true "Acolyte")
+![Novitiate](/images/screenshot.png?raw=true "Novitiate")
 
-## Acolyte Instructions
+## Novitiate Instructions
 
-Acolyte is played from the terminal.
+Novitiate is played from the terminal.
 
 The object of the game is to find the Staff of Eternity.  
 
@@ -60,7 +62,7 @@ i - return to NORMAL MODE
 ### Objects
 
 ```
-@ - the acolyte
+@ - the novitiate
 [a-z,A-Z] - beings of all kinds
 # - wall
 % - weapon or armor
@@ -73,7 +75,7 @@ $ - cold, hard cash
 
 ## Installation
 
-Currently, Acolyte is only supported on OSX, though it should work on at least 
+Currently, Novitiate is only supported on OSX, though it should work on at least 
 some Linux distros.
 
 ### Install via homebrew
@@ -83,6 +85,9 @@ Installing via homebrew is easy. Just run the following commands:
 brew tap jtfmumm/tap
 brew install acolyte
 ```
+
+I need to update the tap to reflect the new name, but in the meantime you can
+run the game by following the above instructions and running `acolyte`.
 
 ### Building on Mac OS X
 
@@ -108,7 +113,7 @@ $ sudo port select --set llvm mp-llvm-3.8
 ```
 
 ##### Install compiler
-Clone the ponyc repo and install the compiler (Acolyte is tested with ponyc 
+Clone the ponyc repo and install the compiler (Novitiate is tested with ponyc 
 v0.14.0):
 ```
 git clone https://github.com/ponylang/ponyc
@@ -117,18 +122,18 @@ git checkout 0.14.0
 make config=release install
 ```
 
-#### Building Acolyte
+#### Building Novitiate
 ```
-git clone https://github.com/jtfmumm/acolyte
-cd acolyte
+git clone https://github.com/jtfmumm/novitiate
+cd novitiate
 ponyc
-chmod +x acolyte
+chmod +x novitiate
 ```
 
 ## Running
 Your terminal must have dimensions of at least 99x31 to run the game properly. 
 
-Assuming you've set execute permissions (e.g. via `chmod +x acolyte`), you can run the game with the following command:
+Assuming you've set execute permissions (e.g. via `chmod +x novitiate`), you can run the game with the following command:
 ```
-./acolyte
+./novitiate
 ```
