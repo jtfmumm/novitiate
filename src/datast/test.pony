@@ -10,7 +10,6 @@ actor Main is TestList
   fun tag tests(test: PonyTest) =>
     test(_TestRectRoomShape)
     test(_TestRangedArray)
-    test(_TestMinHeap)
 
 class iso _TestRectRoomShape is UnitTest
   fun name(): String => "datast:RectRoom"
@@ -49,41 +48,3 @@ class iso _TestRangedArray is UnitTest
     h.assert_eq[String](r(9)?, "this")
     h.assert_eq[String](r(10)?, "is")
     h.assert_eq[String](r(100)?, "is")
-
-class iso _TestMinHeap is UnitTest
-  fun name(): String => "datast:MinHeap"
-
-  fun apply(h: TestHelper) ? =>
-    let mh = MinHeap[I32]
-    mh.insert(5)
-    h.assert_eq[I32](mh.peek()?, 5)
-    mh.insert(3)
-    h.assert_eq[I32](mh.peek()?, 3)
-    mh.insert(7)
-    h.assert_eq[I32](mh.peek()?, 3)
-    mh.insert(2)
-    h.assert_eq[I32](mh.peek()?, 2)
-    mh.insert(10)
-    h.assert_eq[I32](mh.peek()?, 2)
-    mh.insert(11)
-    h.assert_eq[I32](mh.peek()?, 2)
-    mh.insert(15)
-    h.assert_eq[I32](mh.peek()?, 2)
-    mh.insert(1)
-    h.assert_eq[I32](mh.peek()?, 1)
-    mh.insert(12)
-    h.assert_eq[I32](mh.peek()?, 1)
-    h.assert_eq[I32](mh.pop()?, 1)
-    h.assert_eq[I32](mh.peek()?, 2)
-    h.assert_eq[I32](mh.pop()?, 2)
-    mh.insert(4)
-    h.assert_eq[I32](mh.pop()?, 3)
-    mh.insert(20)
-    h.assert_eq[I32](mh.pop()?, 4)
-    h.assert_eq[I32](mh.pop()?, 5)
-    h.assert_eq[I32](mh.pop()?, 7)
-    h.assert_eq[I32](mh.pop()?, 10)
-    h.assert_eq[I32](mh.pop()?, 11)
-    h.assert_eq[I32](mh.pop()?, 12)
-    h.assert_eq[I32](mh.pop()?, 15)
-    h.assert_eq[I32](mh.pop()?, 20)

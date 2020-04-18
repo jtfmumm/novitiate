@@ -7,3 +7,4 @@ novitiate-dev
 *.dSYM
 .deps/
 .DS_Store
+*.obj
